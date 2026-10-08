@@ -1,0 +1,99 @@
+{
+  "name": "@startupmill/paperclip-plugin-token-clip",
+  "version": "0.1.0",
+  "description": "Task token audit and API-equivalent cost comparison for Paperclip",
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Toby Allen",
+    "url": "https://startupmill.co"
+  },
+  "keywords": [
+    "paperclip",
+    "paperclip-plugin",
+    "tokens",
+    "costs"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "migrations",
+    "vendor",
+    "docs",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "changelog.md",
+    "tests",
+    "scripts",
+    "tsconfig.json",
+    "vitest.config.ts",
+    "esbuild.config.mjs",
+    "pnpm-lock.yaml",
+    "preview",
+    "index.html",
+    "todo.md"
+  ],
+  "exports": {
+    ".": "./dist/worker.js"
+  },
+  "paperclipPlugin": {
+    "manifest": "./dist/manifest.js",
+    "worker": "./dist/worker.js",
+    "ui": "./dist/ui/"
+  },
+  "scripts": {
+    "build": "node esbuild.config.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "pnpm typecheck && pnpm test && pnpm build",
+    "prepack": "pnpm check && pnpm validate:package",
+    "preview": "vite --host 127.0.0.1",
+    "format": "prettier --write src tests docs *.md *.json *.ts *.mjs",
+    "validate:package": "node scripts/validate-package.mjs",
+    "smoke:worker": "node scripts/smoke-worker.mjs",
+    "preview:build": "vite build --outDir preview-dist"
+  },
+  "devDependencies": {
+    "@paperclipai/plugin-sdk": "file:vendor/paperclipai-plugin-sdk-1.0.0.tgz",
+    "@paperclipai/shared": "file:vendor/paperclipai-shared-0.3.1.tgz",
+    "@electric-sql/pglite": "0.3.15",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.27.3",
+    "jsdom": "^30.0.1",
+    "prettier": "3.6.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "engines": {
+    "node": ">=24.11.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@paperclipai/shared": "file:vendor/paperclipai-shared-0.3.1.tgz"
+    }
+  },
+  "homepage": "https://startupmill.co",
+  "company": {
+    "name": "StartupMill",
+    "url": "https://startupmill.co"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StartupMill/token-clip.git"
+  },
+  "bugs": {
+    "url": "https://github.com/StartupMill/token-clip/issues"
+  },
+  "packageManager": "pnpm@9.15.4"
+}

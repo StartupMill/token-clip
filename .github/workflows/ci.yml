@@ -1,0 +1,33 @@
+name: Verify plugin
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm validate:package
+      - run: pnpm smoke:worker
+      - run: npm pack --ignore-scripts
+      - name: Smoke test extracted archive
+        run: |
+          release_dir=$(mktemp -d)
+          tar -xzf startupmill-paperclip-plugin-token-clip-0.1.0.tgz -C "$release_dir"
+          node scripts/smoke-worker.mjs "$release_dir/package"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: token-clip-plugin
+          path: startupmill-paperclip-plugin-token-clip-*.tgz

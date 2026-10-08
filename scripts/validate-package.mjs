@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFile,access} from 'node:fs/promises';
+import {pluginManifestV1Schema} from '@paperclipai/shared';
+import manifest from '../dist/manifest.js';
+const pkg=JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
+pluginManifestV1Schema.parse(manifest);
+assert.equal(pkg.version,manifest.version);
+for(const file of [pkg.paperclipPlugin.manifest,pkg.paperclipPlugin.worker,`${pkg.paperclipPlugin.ui}index.js`,'migrations/README.md','THIRD_PARTY_NOTICES.md']) await access(new URL('../'+file,import.meta.url));
+const ui=await readFile(new URL('../dist/ui/index.js',import.meta.url),'utf8');
+for(const slot of manifest.ui.slots) assert.ok(ui.includes(slot.exportName),`Missing UI export ${slot.exportName}`);
+console.log(`Validated ${pkg.name}@${pkg.version}: manifest, version, worker, UI slots and distribution files.`);
