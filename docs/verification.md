@@ -27,3 +27,7 @@ Built against the pinned SDK/shared archives and checked against the local Paper
 Monthly refinement: calendar-month boundaries, leap years, monthly fee wording and incomplete-coverage handling are covered by the updated automated suite.
 
 Five-provider refinement: tested allocation weights across multi-provider tasks, provider aliases, explicit routing, incomplete pricing/telemetry, unused fees, free versus missing fees, and company/month browser storage isolation. Rendered inputs, combined totals, task allocations and persistence after reload were checked with illustrative data.
+
+## Repository verification
+
+A fresh local Git checkout passed frozen-lockfile installation, all 30 tests, the build and worker smoke. [GitHub CI](https://github.com/StartupMill/token-clip/actions/runs/37804232622) also passed on Linux, including manifest validation, packaging, an isolated extracted-archive worker check and upload of the installable archive as a workflow artifact. Mac mini live-instance acceptance is still pending; see [the setup guide](mac-mini.md).

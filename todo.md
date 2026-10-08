@@ -29,5 +29,5 @@
 ## Repository handoff
 
 - [x] Add reproducible Node/pnpm versions, GitHub CI and Mac mini instructions.
-- [ ] Push private StartupMill/token-clip repository and verify clean-checkout CI.
+- [x] Push private StartupMill/token-clip repository and verify clean-checkout CI (all 30 tests, build and extracted-archive smoke passed).
 - [ ] Run live acceptance checks on the Mac mini (user handoff).
